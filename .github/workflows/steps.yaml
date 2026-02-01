@@ -9,11 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Create and upload hello.txt
-        run: |
-          echo "GitHub Actions is working" > hello.txt
-          # Upload artifact using GitHub CLI
-          gh run upload-artifact hello.txt --name hello-artifact
+      - name: Create hello.txt
+        run: echo "GitHub Actions is working" > hello.txt
+
+      - name: Upload hello.txt
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-artifact
+          path: hello.txt
 
       - name: Show Dates
         run: date
