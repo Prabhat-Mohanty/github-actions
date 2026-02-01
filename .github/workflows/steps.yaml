@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Say Hello
-        run: echo "GitHub Actions is working"
+        run: echo "GitHub Actions is working" > hello.txt
 
       - name: Show Dates
         run: date
