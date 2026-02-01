@@ -1,0 +1,29 @@
+name: Angular Dotnet Github Action
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
+      - name: Install dependencies
+        run: npm install --prefix frontend
+
+      - name: Build Angular project
+        run: npm run build --prefix frontend
+
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-artifact
+          path: frontend/dist

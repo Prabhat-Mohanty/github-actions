@@ -1,0 +1,14 @@
+# ===== .NET =====
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# ===== Angular / Node =====
+node_modules/
+dist/
+
+# ===== OS / Tools =====
+.DS_Store
+Thumbs.db
