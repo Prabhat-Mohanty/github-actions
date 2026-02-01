@@ -28,5 +28,5 @@ jobs:
           name: frontend-artifact
           path: AngularApplication/dist
 
-      - name: Print artifact
-        run: cat frontend-artifact
+      - name: Show index.html
+        run: cat dist/index.html
