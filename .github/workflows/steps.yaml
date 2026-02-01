@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Create hello.txt
-        run: echo "GitHub Actions is working" > hello.txt
+        run: echo "GitHub Actions is working as excepted" > hello.txt
 
       - name: Upload hello.txt
         uses: actions/upload-artifact@v4
