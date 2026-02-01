@@ -12,5 +12,5 @@ jobs:
       - name: Say Hello
         run: echo "GitHub Actions is working"
 
-      - name: Show Date
+      - name: Show Dates
         run: date
