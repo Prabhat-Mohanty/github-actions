@@ -1,0 +1,16 @@
+name: First Action
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Say Hello
+        run: echo "GitHub Actions is working"
+
+      - name: Show Date
+        run: date
