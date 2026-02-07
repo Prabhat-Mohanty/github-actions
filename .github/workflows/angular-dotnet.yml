@@ -36,6 +36,22 @@ jobs:
           with:
             dotnet-version: 8
 
-        # 6. Build .NET backend
+        # Build .NET backend
         - name: Build .NET API
           run: dotnet build DotnetApplication/DotnetApplication.csproj --configuration Release
+  
+  use-frontend-artifact:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      # Download Angular Artifact
+      - uses: actions/download-artifact@v4
+        with:
+          name: frontend-artifact
+
+      # List downloaded files
+      - run: ls -R
+
+      # Show index.html
+      - run: cat */browser/index.html    
