@@ -1,43 +1,41 @@
-name: Angular Dotnet Github Action
+name: Angular Dotnet CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
-  build-frontend:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        # Checkout repo into github runner
+        - uses: actions/checkout@v3
+        
+        # Install Node Js - v20
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 20
+        
+        # Setup Angular 
+        - name: Setup Angular
+          run: | 
+            npm install --prefix AngularApplication
+            npm run build --prefix AngularApplication
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20.x
+        # Upload frontend build as artifact
+        - name: Upload Angular Artifacts 
+          uses: actions/upload-artifact@v4
+          with:
+            name: frontend-artifact
+            path: AngularApplication/dist
 
-      - name: Install dependencies
-        run: npm install --prefix AngularApplication
+        # Stepup .NET
+        - uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: 8
 
-      - name: Build Angular project
-        run: npm run build --prefix AngularApplication
-
-      - name: Upload frontend artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend-artifact
-          path: AngularApplication/dist
-
-  use-frontend-artifact:
-    runs-on: ubuntu-latest
-    needs: build-frontend
-
-    steps:
-      - name: Download frontend artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: frontend-artifact
-
-      - name: Show index.html
-        run: cat angular-application/browser/index.html
+        # 6. Build .NET backend
+        - name: Build .NET API
+          run: dotnet build DotnetApplication/DotnetApplication.csproj --configuration Release
